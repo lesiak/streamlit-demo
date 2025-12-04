@@ -1,8 +1,12 @@
 import streamlit as st
+import pandas as pd
 
 def main():
     st.title("Hello from streamlit-demo!")
-    typography()
+    # typography() 
+
+    votes = pd.read_csv("votes.csv")
+    votes
 
 def typography():   
     st.header("How is it going?")
