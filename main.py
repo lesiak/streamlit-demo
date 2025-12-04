@@ -9,6 +9,11 @@ def main():
     votes = votes[votes['round'] == 'final']
 
     votes['jury_points'] = votes['jury_points'].fillna(votes['total_points'])
+
+    favourite_country = votes[votes['jury_points'] == 12]
+    favourite_country = favourite_country.groupby(['from_country', 'to_country'])['to_country_id'].count().reset_index()
+
+    favourite_country
     votes.shape
     votes
 
