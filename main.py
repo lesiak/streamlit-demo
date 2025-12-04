@@ -14,16 +14,19 @@ def main():
     st.subheader("Who likes whom")
     who_likes_whom(votes)
     
-    st.subheader("Votes for Denmark")
-    denmark_votes(votes)
+    st.subheader("Votes for country")
+    votes_for_selected_country(votes)
     
 
     votes.shape
     votes
 
-def denmark_votes(votes):
+def votes_for_selected_country(votes):
+    all_countries = votes['to_country'].unique()
+    all_countries.sort()
+    chosen_country = st.selectbox('Pick a country', all_countries)
     votes_per_year = votes.groupby(['to_country', 'year']).sum().reset_index()
-    denmark = votes_per_year[votes_per_year['to_country'] == 'dk']
+    denmark = votes_per_year[votes_per_year['to_country'] == chosen_country]
     st.line_chart(denmark, x='year', y='jury_points')
  
 def who_likes_whom(votes):
