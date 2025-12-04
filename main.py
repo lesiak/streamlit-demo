@@ -11,17 +11,18 @@ def main():
     votes['jury_points'] = votes['jury_points'].fillna(votes['total_points'])
     
     # typography() 
-    col1, col2 = st.columns(2)
-    with col1: 
+    tab1, tab2, tab3 = st.tabs(["By country", "Favourites", "Raw"])
+    with tab1: 
         st.subheader("Votes for country")
         votes_for_selected_country(votes)
 
-    with col2:
+    with tab2:
         st.subheader("Who likes whom")
         who_likes_whom(votes)
     
-    votes.shape
-    votes
+    with tab3:
+        votes.shape
+        votes
 
 def votes_for_selected_country(votes):
     all_countries = votes['to_country'].unique()
