@@ -4,11 +4,7 @@ import pandas as pd
 def main():
     st.title("Hello from streamlit-demo!")
     
-
-    votes = pd.read_csv("votes.csv")
-    votes = votes[votes['round'] == 'final']
-
-    votes['jury_points'] = votes['jury_points'].fillna(votes['total_points'])
+    votes = load_votes()
     
     # typography() 
     tab1, tab2, tab3 = st.tabs(["By country", "Favourites", "Raw"])
@@ -23,6 +19,14 @@ def main():
     with tab3:
         votes.shape
         votes
+
+@st.cache_data(ttl=3600)
+def load_votes():
+    votes = pd.read_csv("votes.csv")
+    votes = votes[votes['round'] == 'final']
+
+    votes['jury_points'] = votes['jury_points'].fillna(votes['total_points'])
+    return votes
 
 def votes_for_selected_country(votes):
     all_countries = votes['to_country'].unique()
