@@ -11,13 +11,21 @@ def main():
     votes['jury_points'] = votes['jury_points'].fillna(votes['total_points'])
     
     # typography() 
+    st.subheader("Who likes whom")
     who_likes_whom(votes)
-
+    
+    st.subheader("Votes for Denmark")
+    denmark_votes(votes)
+    
 
     votes.shape
     votes
 
-
+def denmark_votes(votes):
+    votes_per_year = votes.groupby(['to_country', 'year']).sum().reset_index()
+    denmark = votes_per_year[votes_per_year['to_country'] == 'dk']
+    st.line_chart(denmark, x='year', y='jury_points')
+ 
 def who_likes_whom(votes):
     favourite_country = votes[votes['jury_points'] == 12]
     favourite_country = favourite_country.groupby(['from_country', 'to_country'])['jury_points'].count().reset_index()
