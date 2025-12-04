@@ -7,6 +7,9 @@ def main():
 
     votes = pd.read_csv("votes.csv")
     votes = votes[votes['round'] == 'final']
+
+    votes['jury_points'] = votes['jury_points'].fillna(votes['total_points'])
+    votes.shape
     votes
 
 def typography():   
