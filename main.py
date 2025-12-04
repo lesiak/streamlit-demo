@@ -6,6 +6,7 @@ def main():
     # typography() 
 
     votes = pd.read_csv("votes.csv")
+    votes = votes[votes['round'] == 'final']
     votes
 
 def typography():   
